@@ -1,0 +1,1 @@
+goog.module('js.app.ts.greeter');

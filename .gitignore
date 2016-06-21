@@ -10,7 +10,7 @@ js/closure-library
 js/tsickle_externs.js
 js/externs/closure
 js/bin
-js/app/
+js/app/ts
 
 ts/app/definitions/clutz
 
