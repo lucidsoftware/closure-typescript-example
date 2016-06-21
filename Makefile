@@ -5,12 +5,11 @@ all: js
 define HELP_TEXT
 all          -   js
 run          -   compile and execute main.js
+
 js           -   compile all js
 ts           -   compile all ts
-deps         -   locally install all dependencies
-
 clutz        -   generate ts definition file from closure js
-broken-clutz -   fail to run clutz
+deps         -   locally install all dependencies
 
 clean-app    -   remove all generated files - does NOT uninstall dependencies
 clean        -   remove all generated files and uninstalls all dependencies
