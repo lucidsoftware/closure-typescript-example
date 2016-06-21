@@ -15,7 +15,7 @@ All other dependencies will be downloaded and installed locally in the project w
 The project has been tested on Ubuntu 14.04.
 
 ## Docker
-A docker container has been generated for this repository. It has a copy of the repository with `make deps` run.
+A docker container exists for this repository. It contains a copy of the repository with `make deps` already run.
 
 In order to run the docker container,
 ```
