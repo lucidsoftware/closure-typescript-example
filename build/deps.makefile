@@ -25,7 +25,7 @@ build/.clutz: $(CLUTZ_VERSION) build/.gradle
 	rm -rf $(CLUTZ_PATH)
 	mkdir -p $(CLUTZ_PATH)
 	curl -L `cat $<` | tar xz -C $(CLUTZ_PATH) --strip-components=1
-	cd $(CLUTZ_PATH) && ../../../$(GRADLE) build installDist
+	cd $(CLUTZ_PATH) && ../../../$(GRADLE) build installDist || exit 1
 	@> $@
 
 clean-clutz-install: clean-clutz
@@ -68,7 +68,7 @@ build/.tsickle: $(TSICKLE_VERSION) build/.npm-install
 	mkdir -p $(TSICKLE_PATH)
 	$(JS_ROOTS:%='%/**.js')
 	curl -L `cat $<` | tar xz -C $(TSICKLE_PATH) --strip-components=1
-	cd $(TSICKLE_PATH) && npm install
+	cd $(TSICKLE_PATH) && npm install || exit 1
 	@> $@
 
 clean-tsickle:

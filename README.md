@@ -8,7 +8,24 @@ To run the provided example, run `make` or `make run` at the root of the project
 * Linux or Mac OSX
 * Make
 * Java
+* npm
 
 All other dependencies will be downloaded and installed locally in the project when you run make.
 
 The project has been tested on Ubuntu 14.04.
+
+## Docker
+A docker container has been generated for this repository. It has a copy of the repository with `make deps` run.
+
+In order to run the docker container,
+```
+docker pull jjudd/closure-typescript-example
+docker run -i -t jjudd/closure-typescript-example
+```
+
+Then you can
+
+```
+cd closure-typescript-example
+make run
+````
