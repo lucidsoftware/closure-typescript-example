@@ -1,0 +1,9 @@
+{
+  "name": "typescript-closure-example",
+  "version": "0.0.0",
+  "homepage": "https://github.com/lucid-software/typescript-closure-example",
+  "devDependencies": {
+    "typescript": "^1.8.0 || ^1.9.0-dev"
+  }
+}
+

@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+      "charset": "UTF-8",
+      "module": "commonjs",
+      "newLine": "lf",
+      "noEmitOnError": true,
+      "noImplicitAny": true,
+      "outDir": "../../js/app/ts",
+      "pretty": true,
+      "removeComments": false,
+      "sourceMap": true,
+      "target": "es6"
+  }
+}
+
