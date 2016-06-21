@@ -9,6 +9,7 @@ ts           -   compile all ts
 deps         -   locally install all dependencies
 run          -   compile and execute main.js
 
+clean        -   remove all generated files and deps
 clean-*      -   remove files created by target *
 help         -   print this message
 endef

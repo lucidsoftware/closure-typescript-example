@@ -2,7 +2,7 @@
 An example of using the Google Closure Compiler with TypeScript, Tsickle, and Clutz.
 
 ## Usage
-To run the provided example, run `make` or `make all` at the root of the project. `make help` lists all available make targets.
+To run the provided example, run `make` or `make run` at the root of the project. `make help` lists all available make targets.
 
 ## Dependencies
 * Linux or Mac OSX
