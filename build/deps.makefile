@@ -28,23 +28,8 @@ build/.clutz: $(CLUTZ_VERSION) build/.gradle
 	cd $(CLUTZ_PATH) && ../../../$(GRADLE) build installDist
 	@> $@
 
-clean-clutz: clean-clutz-output
+clean-clutz-install: clean-clutz
 	rm -rf $(CLUTZ_PATH) build/.clutz
-
-CLUTZ_OUTPUT_PATH := $(TS_DEFINITIONS_ROOT)/main.d.ts
-CLUTZ_CLOSURE_DEF_PATH := $(TS_DEFINITIONS_ROOT)/closure.lib.d.ts
-
-clutz: build/.clutz-output
-build/.clutz-output: build/.clutz build/.closure-library build/.closure-externs $(JS_EXTERNS) $(JS_SOURCES_NO_TS)
-	mkdir -p $(TS_DEFINITIONS_ROOT)
-	$(CLUTZ) --closure_entry_point Message \
-		$(foreach extern, $(JS_EXTERNS), --externs $(extern)) \
-		-o $(CLUTZ_OUTPUT_PATH) $(sort $(JS_CLOSURE_LIBRARY_SOURCES) $(JS_SOURCES_NO_TS))
-	cp $(CLUTZ_PATH)/src/resources/closure.lib.d.ts $(CLUTZ_CLOSURE_DEF_PATH)
-	@> $@
-
-clean-clutz-output:
-	rm -f $(CLUTZ_OUTPUT_PATH) $(CLUTZ_CLOSURE_DEF_PATH) build/.clutz-output
 
 # node and npm
 NODE_ROOT := deps/node
