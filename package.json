@@ -3,7 +3,19 @@
   "version": "0.0.0",
   "homepage": "https://github.com/lucid-software/typescript-closure-example",
   "devDependencies": {
-    "typescript": "^1.8.0 || ^1.9.0-dev"
+    "@angular/common": "file:vendor/angular/common",
+    "@angular/compiler": "file:vendor/angular/compiler",
+    "@angular/compiler-cli": "file:vendor/angular/compiler-cli",
+    "@angular/core": "file:vendor/angular/core",
+    "@angular/platform-browser": "file:vendor/angular/platform-browser",
+    "@angular/platform-browser-dynamic": "file:vendor/angular/platform-browser-dynamic",
+    "@angular/platform-server": "file:vendor/angular/platform-server",
+    "rxjs": "5.0.0-beta.9",
+    "rxjs-closure": "file:vendor/rxjs",
+    "typescript": "^1.9.0-dev",
+    "tslib": "1.0.0",
+    "symbol-observable": "file:vendor/symbol-observable",
+    "zone.js": "^0.6.12"
   }
 }
 

@@ -5,15 +5,21 @@ deps/clutz/clutz
 deps/gradle/gradle
 deps/node/node
 deps/tsickle/tsickle
+deps/angular/angular
+deps/rxjs/rxjs
+deps/symbol-observable/symbol-observable
 
 js/closure-library
 js/tsickle_externs.js
-js/externs/closure
+js/clutz-externs
 js/bin
 js/app/ts
 
 ts/app/definitions/clutz
+ts/app/basic.ngfactory.ts
 
 node_modules/
+
+vendor/
 
 build/**/.*
