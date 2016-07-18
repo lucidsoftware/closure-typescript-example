@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 goog.provide('main');
 
 goog.require('Statement');

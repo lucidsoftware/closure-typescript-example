@@ -5,9 +5,29 @@
 </head>
 <body>
   <basic></basic>
+  <script src="node_modules/reflect-metadata/Reflect.js"></script>
+  <script src="node_modules/zone.js/dist/zone.js"></script>
   <script src="js/app/tslib/tslib.es6.js"></script>
-  <script src="js/angular2-polyfills.min.js"></script>
-  <script src="js/bin/main.js"></script>
+  <script>
+      function getParameterByName(name) {
+          var url = window.location.href;
+          name = name.replace(/[\[\]]/g, "\\$&");
+          var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+              results = regex.exec(url);
+          if (!results) return null;
+          if (!results[2]) return '';
+          return decodeURIComponent(results[2].replace(/\+/g, " "));
+      }
+      var compiled = getParameterByName('compiled');
+
+      if (typeof compiled !== 'undefined' && compiled != null && compiled === '0') {
+        document.write('<script src="js/closure-library/closure/goog/base.js"><\/script>');
+        document.write('<script src="js/bin/deps.js"><\/script>');
+        document.write('<script>goog.require(\'js.app.ts.bootstrap\');<\/script>');
+      } else {
+        document.write('<script src="js/bin/main.js"><\/script>');
+      }
+  </script>
 </body>
 </html>
 

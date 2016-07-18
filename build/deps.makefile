@@ -20,7 +20,8 @@ clean-deps: clean-build/.clutz \
 	clean-build/.gradle \
 	clean-build/.rxjs \
 	clean-build/.angular \
-	clean-build/.symbol-observable
+	clean-build/.symbol-observable \
+	rm -rf $(CLOSURE_NODE_MODULES_ROOT)
 
 # clutz
 CLUTZ_ROOT := deps/clutz
@@ -149,13 +150,11 @@ build/.gradle: $(GRADLE_VERSION)
 clean-build/.gradle:
 	rm -rf $(GRADLE_PATH) build/.gradle
 
-VENDOR_DIR := vendor
-
 # angular
 ANGULAR_ROOT := deps/angular
 ANGULAR_PATH := $(ANGULAR_ROOT)/angular
 ANGULAR_VERSION := $(ANGULAR_ROOT)/angular.version
-ANGULAR_DEST := $(VENDOR_DIR)/angular
+ANGULAR_DEST := $(CLOSURE_NODE_MODULES_ROOT)/angular
 
 build/.angular: $(ANGULAR_VERSION)
 	rm -rf $(ANGULAR_PATH)
@@ -166,7 +165,9 @@ build/.angular: $(ANGULAR_VERSION)
 		sed -i 's/0.0.0-PLACEHOLDER/2.0.0-rc.4-snap/g' $$pkg; \
 		sed -i 's/5.0.0-beta.6/5.0.0-beta.9/g' $$pkg; \
 	done
-	mkdir -p $(ANGULAR_DEST) && cp -r $(ANGULAR_PATH)/dist/packages-dist/* $(ANGULAR_DEST)
+	mkdir -p $(ANGULAR_DEST)
+	cp -r $(ANGULAR_PATH)/dist/packages-dist/* $(ANGULAR_DEST)
+	cp -r $(ANGULAR_PATH)/dist/tools/@angular/tsc-wrapped $(ANGULAR_DEST)
 	@> $@
 
 clean-build/.angular:
@@ -176,7 +177,7 @@ clean-build/.angular:
 RXJS_ROOT := deps/rxjs
 RXJS_PATH := $(RXJS_ROOT)/rxjs
 RXJS_VERSION := $(RXJS_ROOT)/rxjs.version
-RXJS_DEST := $(VENDOR_DIR)/rxjs
+RXJS_DEST := $(CLOSURE_NODE_MODULES_ROOT)/rxjs
 
 build/.rxjs: $(RXJS_VERSION) build/.tsickle
 	rm -rf $(RXJS_PATH)
@@ -188,6 +189,12 @@ build/.rxjs: $(RXJS_VERSION) build/.tsickle
 	for js in `find dist/closure -name "*.js"`; do \
 		sed -i "s/goog.module('dist.closure/goog.module('rxjs/g" $$js; \
 		sed -i "s/goog.require('dist.closure/goog.require('rxjs/g" $$js; \
+		sed -i "s/(this && this.__assign) ||//g" $$js; \
+		sed -i "s/(this && this.__decorate) ||//g" $$js; \
+		sed -i "s/(this && this.__metadata) ||//g" $$js; \
+		sed -i "s/(this && this.__awaiter) ||//g" $$js; \
+		sed -i "s/(this && this.__param) ||//g" $$js; \
+		sed -i "s/(this && this.__extends) ||//g" $$js; \
 	done
 	mkdir -p $(RXJS_DEST) && cp -r $(RXJS_PATH)/dist/closure/* $(RXJS_DEST)
 	@> $@
@@ -199,7 +206,7 @@ clean-build/.rxjs:
 SYMBOL_OBSERVABLE_ROOT := deps/symbol-observable
 SYMBOL_OBSERVABLE_PATH := $(SYMBOL_OBSERVABLE_ROOT)/symbol-observable
 SYMBOL_OBSERVABLE_VERSION := $(SYMBOL_OBSERVABLE_ROOT)/symbol-observable.version
-SYMBOL_OBSERVABLE_DEST := $(VENDOR_DIR)/symbol-observable
+SYMBOL_OBSERVABLE_DEST := $(CLOSURE_NODE_MODULES_ROOT)/symbol-observable
 
 build/.symbol-observable: $(SYMBOL_OBSERVABLE_VERSION)
 	rm -rf $(SYMBOL_OBSERVABLE_PATH)

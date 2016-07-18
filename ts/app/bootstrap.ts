@@ -1,9 +1,5 @@
-import {coreBootstrap, ReflectiveInjector} from '@angular/core';
-import {browserPlatform,BROWSER_APP_PROVIDERS} from '@angular/platform-browser';
-import {BasicNgFactory} from './basic.ngfactory';
-import {Basic} from './basic';
+import {bootstrapModuleFactory} from '@angular/core';
+import {browserPlatform} from '@angular/platform-browser';
+import {BasicModuleNgFactory} from './basic.ngfactory';
 
-const appInjector =
-    ReflectiveInjector
-    .resolveAndCreate(BROWSER_APP_PROVIDERS, browserPlatform().injector);
-coreBootstrap(BasicNgFactory, appInjector);
+bootstrapModuleFactory(BasicModuleNgFactory, browserPlatform());
