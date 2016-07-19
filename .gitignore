@@ -14,12 +14,11 @@ js/tsickle_externs.js
 js/clutz-externs
 js/bin
 js/app/ts
+js/closure-node-modules
 
 ts/app/definitions/clutz
 ts/app/basic.ngfactory.ts
 
 node_modules/
-
-vendor/
 
 build/**/.*

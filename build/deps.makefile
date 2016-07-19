@@ -1,6 +1,6 @@
 deps: build/.clutz \
 	build/.node \
-	build/.npm-install
+	build/.npm-install \
 	build/.tsickle \
 	build/.closure-compiler \
 	build/.closure-externs \
@@ -20,7 +20,7 @@ clean-deps: clean-build/.clutz \
 	clean-build/.gradle \
 	clean-build/.rxjs \
 	clean-build/.angular \
-	clean-build/.symbol-observable \
+	clean-build/.symbol-observable
 	rm -rf $(CLOSURE_NODE_MODULES_ROOT)
 
 # clutz
@@ -177,7 +177,7 @@ clean-build/.angular:
 RXJS_ROOT := deps/rxjs
 RXJS_PATH := $(RXJS_ROOT)/rxjs
 RXJS_VERSION := $(RXJS_ROOT)/rxjs.version
-RXJS_DEST := $(CLOSURE_NODE_MODULES_ROOT)/rxjs
+RXJS_DEST := $(CLOSURE_NODE_MODULES_ROOT)/rxjs-closure
 
 build/.rxjs: $(RXJS_VERSION) build/.tsickle
 	rm -rf $(RXJS_PATH)
