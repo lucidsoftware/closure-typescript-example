@@ -1,6 +1,6 @@
 FROM ubuntu:14.04
 
-RUN apt-get update && apt-get install -y openjdk-7-jdk build-essential git curl unzip nodejs vim
+RUN apt-get update && apt-get install -y openjdk-7-jdk build-essential git curl unzip nodejs vim python
 
 RUN curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 RUN apt-get install -y nodejs
@@ -18,5 +18,5 @@ USER foo
 WORKDIR /home/foo
 
 RUN git clone https://github.com/lucidsoftware/closure-typescript-example.git
-RUN cd closure-typescript-example && make deps
-CMD /bin/bash
+RUN cd closure-typescript-example && make all -j 8
+CMD cd closure-typescript-example && make run

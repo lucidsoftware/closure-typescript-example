@@ -1,8 +1,8 @@
-import Message from 'goog:Message';
+import Statement from 'goog:Statement';
 
 export class Greeter {
-    constructor(public message: Message) {}
+    constructor(public statement: Statement) {}
     greet(): string {
-        return this.message.getMessage();
+        return this.statement.getStatement();
     }
 };
