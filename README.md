@@ -29,7 +29,7 @@ changes to the code are the best documentation.
 
 ## Docker
 A Docker container exists for this repository. To see the project in action,
-just run the Docker container and go to localhost:8000.
+just run the Docker container and go to `localhost:8000`.
 
 In order to run the docker container,
 ```
