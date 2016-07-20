@@ -31,7 +31,7 @@ changes to the source of the dependencies are the best documentation.
 A Docker container exists for this repository. To see the project in action,
 just run the Docker container and go to `localhost:8000`.
 
-In order to run the docker container,
+To run the docker container:
 ```
 docker pull jjudd/closure-typescript-example
 docker run -t -i -p 8000:8000 --net=host jjudd/closure-typescript-example
@@ -40,7 +40,7 @@ docker run -t -i -p 8000:8000 --net=host jjudd/closure-typescript-example
 Then open a browser and go to `localhost:8000`. This loads the example in
 compiled mode.
 
-To switch between compiled and uncompiled, go to
+To switch between compiled and uncompiled:
 
 ```
 localhost:8000/index.html?compiled=1
