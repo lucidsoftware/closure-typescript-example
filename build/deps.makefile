@@ -49,12 +49,13 @@ ifeq ($(UNAME_S),Darwin)
 endif
 
 NODE := $(abspath $(NODE_PATH)/bin/node)
-NPM := $(abspath $(NODE_PATH)/bin/npm)
+NPM := $(abspath node_modules/.bin/npm) --nodedir=$(abspath $(NODE_PATH))
 
 build/.node: $(NODE_VERSION)
 	rm -rf $(NODE_PATH)
 	mkdir -p $(NODE_PATH)
 	curl -L `cat $<` | tar xJ -C $(NODE_PATH) --strip-components=1
+	$(NODE_PATH)/bin/npm install npm@3.9.6
 	@> $@
 
 clean-build/.node:
@@ -77,7 +78,7 @@ build/.tsickle: $(TSICKLE_VERSION) build/.node
 	rm -rf $(TSICKLE_PATH)
 	mkdir -p $(TSICKLE_PATH)
 	curl -L `cat $<` | tar xz -C $(TSICKLE_PATH) --strip-components=1
-	cd $(TSICKLE_PATH) && npm install || exit 1
+	cd $(TSICKLE_PATH) && $(NPM) install || exit 1
 	@> $@
 
 clean-build/.tsickle:
@@ -156,11 +157,11 @@ ANGULAR_PATH := $(ANGULAR_ROOT)/angular
 ANGULAR_VERSION := $(ANGULAR_ROOT)/angular.version
 ANGULAR_DEST := $(CLOSURE_NODE_MODULES_ROOT)/angular
 
-build/.angular: $(ANGULAR_VERSION)
+build/.angular: $(ANGULAR_VERSION) build/.node
 	rm -rf $(ANGULAR_PATH)
 	mkdir -p $(ANGULAR_PATH)
 	curl -L `cat $<` | tar xz -C $(ANGULAR_PATH) --strip-components=1
-	cd $(ANGULAR_PATH) && npm install && ./build.sh
+	cd $(ANGULAR_PATH) && $(NPM) install && ./build.sh
 	for pkg in `find $(ANGULAR_PATH)/dist/packages-dist -name package.json`; do \
 		sed -i 's/0.0.0-PLACEHOLDER/2.0.0-rc.4-snap/g' $$pkg; \
 		sed -i 's/5.0.0-beta.6/5.0.0-beta.9/g' $$pkg; \
@@ -179,13 +180,13 @@ RXJS_PATH := $(RXJS_ROOT)/rxjs
 RXJS_VERSION := $(RXJS_ROOT)/rxjs.version
 RXJS_DEST := $(CLOSURE_NODE_MODULES_ROOT)/rxjs-closure
 
-build/.rxjs: $(RXJS_VERSION) build/.tsickle
+build/.rxjs: $(RXJS_VERSION) build/.tsickle build/.node
 	rm -rf $(RXJS_PATH)
 	mkdir -p $(RXJS_PATH)
 	curl -L `cat $<` | tar xz -C $(RXJS_PATH) --strip-components=1
 	cd $(RXJS_PATH) && \
-	npm install $(abspath $(TSICKLE_PATH)) && \
-	npm install && \
+	$(NPM) install $(abspath $(TSICKLE_PATH)) && \
+	$(NPM) install && \
 	for js in `find dist/closure -name "*.js"`; do \
 		sed -i "s/goog.module('dist.closure/goog.module('rxjs/g" $$js; \
 		sed -i "s/goog.require('dist.closure/goog.require('rxjs/g" $$js; \
@@ -208,12 +209,12 @@ SYMBOL_OBSERVABLE_PATH := $(SYMBOL_OBSERVABLE_ROOT)/symbol-observable
 SYMBOL_OBSERVABLE_VERSION := $(SYMBOL_OBSERVABLE_ROOT)/symbol-observable.version
 SYMBOL_OBSERVABLE_DEST := $(CLOSURE_NODE_MODULES_ROOT)/symbol-observable
 
-build/.symbol-observable: $(SYMBOL_OBSERVABLE_VERSION)
+build/.symbol-observable: $(SYMBOL_OBSERVABLE_VERSION) build/.node
 	rm -rf $(SYMBOL_OBSERVABLE_PATH)
 	mkdir -p $(SYMBOL_OBSERVABLE_PATH)
 	curl -L `cat $<` | tar xz -C $(SYMBOL_OBSERVABLE_PATH) --strip-components=1
 	cd $(SYMBOL_OBSERVABLE_PATH) && \
-	npm install
+	$(NPM) install
 	mkdir -p $(SYMBOL_OBSERVABLE_DEST) && cp -r $(SYMBOL_OBSERVABLE_PATH)/* $(SYMBOL_OBSERVABLE_DEST)
 	@> $@
 

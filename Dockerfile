@@ -1,9 +1,10 @@
 FROM ubuntu:14.04
 
-RUN apt-get update && apt-get install -y openjdk-7-jdk build-essential git curl unzip nodejs vim python
+RUN apt-get update && apt-get install -y openjdk-7-jdk build-essential git curl unzip nodejs vim python gyp
 
 RUN curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 RUN apt-get install -y nodejs
+RUN npm install -g npm
 
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
