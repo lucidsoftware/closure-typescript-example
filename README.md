@@ -25,7 +25,7 @@ and transitive dependencies. These include RxJS and symbol-observable.
 The changes which make this possible have not been committed upstream. Discussion
 around these changes can be found at https://github.com/angular/angular/issues/8550.
 The discussion is not exhaustive. If you have any questions, the build process and
-changes to the code are the best documentation.
+changes to the source of the dependencies are the best documentation.
 
 ## Docker
 A Docker container exists for this repository. To see the project in action,
