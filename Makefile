@@ -36,7 +36,6 @@ RIGHT_PAREN := )
 JS_ROOT := js/app
 TS_OUTPUT_DIR := $(JS_ROOT)/ts
 JS_BIN_PATH := js/bin
-JS_CLUTZ_PATH := $(JS_ROOT)/clutz-mock
 JS_EXTERNS_ROOT := $(JS_ROOT)/externs
 CLUTZ_EXTERNS_ROOT := js/clutz-externs
 JS_CLOSURE_LIBRARY_ROOTS := js/closure-library/closure/goog js/closure-library/third_party
@@ -44,7 +43,6 @@ CLOSURE_NODE_MODULES_ROOT := js/closure-node-modules
 
 JS_SOURCES = $(sort \
 	$(shell find $(JS_ROOT) \
-		-not -path "$(JS_CLUTZ_PATH)/*" \
 		-type f \
 		-name "*.js" \
 	) \
@@ -82,14 +80,15 @@ $(JS_BIN_PATH)/main.js: $(JS_SOURCES) $(JS_EXTERNS) build/.ngc-output build/.clo
 	$(CLOSURE_COMPILE) \
 		$(JS_EXTERNS:%=--externs %) \
 		--js_output_file=$(JS_BIN_PATH)/main.js \
-		--language_in=ES6 \
+		--language_in=ES6_STRICT \
 		--language_out=ES5 \
-		--compilation_level=SIMPLE_OPTIMIZATIONS \
-		--closure_entry_point="js.app.ts.bootstrap" \
+		--compilation_level=ADVANCED \
+		--entry_point="js.app.ts.bootstrap" \
 		--variable_renaming_report=$(JS_BIN_PATH)/variable_renaming_report \
 		--property_renaming_report=$(JS_BIN_PATH)/property_renaming_report \
+		--use_types_for_optimization true \
+		--dependency_mode=STRICT \
 		$(JS_ROOT:%='%/**.js') \
-		'!$(JS_CLUTZ_PATH)/**.js' \
 		'!$(JS_EXTERNS_ROOT)/**.js' \
 		'$(CLOSURE_NODE_MODULES_ROOT)/angular/core/esm/**.js' \
 		'$(CLOSURE_NODE_MODULES_ROOT)/angular/common/esm/**.js' \

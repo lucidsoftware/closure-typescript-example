@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {ANALYZE_FOR_PRECOMPILE, ApplicationRef, AppModule, Component, ComponentFactoryResolver, Directive, Inject, Injectable, Input, OpaqueToken, Pipe} from '@angular/core';
+import {ApplicationRef, NgModule, Component, Injectable} from '@angular/core';
 import {Greeter} from './greeter';
 import Statement from 'goog:Statement';
 
@@ -13,12 +13,13 @@ export class Basic {
   constructor() { this.ctxProp = new Greeter(new Statement('Hello from basic.ts')).greet();}
 }
 
-@AppModule({
-  precompile: [Basic],
-  modules: [BrowserModule]
+@NgModule({
+  declarations: [Basic],
+  entryComponents: [Basic],
+  imports: [BrowserModule],
 })
 export class BasicModule {
-	constructor(appRef: ApplicationRef) {
+	ngDoBootstrap(appRef: ApplicationRef) {
 	  var compRef =
 	      appRef.bootstrap(Basic);
 	}

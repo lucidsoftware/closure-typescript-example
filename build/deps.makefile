@@ -157,14 +157,19 @@ ANGULAR_PATH := $(ANGULAR_ROOT)/angular
 ANGULAR_VERSION := $(ANGULAR_ROOT)/angular.version
 ANGULAR_DEST := $(CLOSURE_NODE_MODULES_ROOT)/angular
 
-build/.angular: $(ANGULAR_VERSION) build/.node
+build/.angular: $(ANGULAR_VERSION) build/.node build/.tsickle
 	rm -rf $(ANGULAR_PATH)
 	mkdir -p $(ANGULAR_PATH)
 	curl -L `cat $<` | tar xz -C $(ANGULAR_PATH) --strip-components=1
-	cd $(ANGULAR_PATH) && $(NPM) install && ./build.sh
+	cd $(ANGULAR_PATH) && \
+	npm install --ignore-scripts $(abspath $(TSICKLE_PATH)) && \
+	$(NPM) install && ./build.sh
 	for pkg in `find $(ANGULAR_PATH)/dist/packages-dist -name package.json`; do \
-		sed -i 's/0.0.0-PLACEHOLDER/2.0.0-rc.4-snap/g' $$pkg; \
+		sed -i 's/0.0.0-PLACEHOLDER/2.0.0-rc.6-snap/g' $$pkg; \
 		sed -i 's/5.0.0-beta.6/5.0.0-beta.9/g' $$pkg; \
+	done
+	for pkg in `find $(ANGULAR_PATH)/dist/packages-dist/*/esm/ -name "*.js"`; do \
+		sed -i 's$$^\(.*static \)$$/** @nocollapse */\n\1$$g' $$pkg; \
 	done
 	mkdir -p $(ANGULAR_DEST)
 	cp -r $(ANGULAR_PATH)/dist/packages-dist/* $(ANGULAR_DEST)

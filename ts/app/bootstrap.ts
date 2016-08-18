@@ -1,5 +1,6 @@
-import {bootstrapModuleFactory} from '@angular/core';
-import {browserPlatform} from '@angular/platform-browser';
+import {platformBrowser} from '@angular/platform-browser';
 import {BasicModuleNgFactory} from './basic.ngfactory';
+import {createPlatformFactory} from '@angular/core';
 
-bootstrapModuleFactory(BasicModuleNgFactory, browserPlatform());
+
+platformBrowser().bootstrapModuleFactory(BasicModuleNgFactory);
