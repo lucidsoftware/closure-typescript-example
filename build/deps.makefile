@@ -33,7 +33,7 @@ build/.clutz: $(CLUTZ_VERSION) build/.gradle
 	rm -rf $(CLUTZ_PATH)
 	mkdir -p $(CLUTZ_PATH)
 	curl -L `cat $<` | tar xz -C $(CLUTZ_PATH) --strip-components=1
-	cd $(CLUTZ_PATH) && $(GRADLE) build installDist || exit 1
+	cd $(CLUTZ_PATH) && $(GRADLE) build -x test installDist || exit 1
 	@> $@
 
 clean-build/.clutz: clean-clutz
@@ -61,7 +61,7 @@ build/.node: $(NODE_VERSION)
 clean-build/.node:
 	rm -rf $(NODE_PATH) build/.node
 
-build/.npm-install: package.json build/.node build/.angular build/.rxjs build/.symbol-observable
+build/.npm-install: package.json build/.node build/.angular build/.rxjs build/.symbol-observable build/.tsickle
 	$(NPM) install
 	@> $@
 
@@ -155,29 +155,32 @@ clean-build/.gradle:
 ANGULAR_ROOT := deps/angular
 ANGULAR_PATH := $(ANGULAR_ROOT)/angular
 ANGULAR_VERSION := $(ANGULAR_ROOT)/angular.version
-ANGULAR_DEST := $(CLOSURE_NODE_MODULES_ROOT)/angular
+ANGULAR_CLOSURE_DEST := $(CLOSURE_NODE_MODULES_ROOT)/angular
 
 build/.angular: $(ANGULAR_VERSION) build/.node build/.tsickle
 	rm -rf $(ANGULAR_PATH)
 	mkdir -p $(ANGULAR_PATH)
 	curl -L `cat $<` | tar xz -C $(ANGULAR_PATH) --strip-components=1
 	cd $(ANGULAR_PATH) && \
+	$(NPM) install && \
 	npm install --ignore-scripts $(abspath $(TSICKLE_PATH)) && \
-	$(NPM) install && ./build.sh
+	./build.sh
 	for pkg in `find $(ANGULAR_PATH)/dist/packages-dist -name package.json`; do \
-		sed -i 's/0.0.0-PLACEHOLDER/2.0.0-rc.6-snap/g' $$pkg; \
-		sed -i 's/5.0.0-beta.6/5.0.0-beta.9/g' $$pkg; \
+		sed -i 's/0.0.0-PLACEHOLDER/2.0.1/g' $$pkg; \
 	done
-	for pkg in `find $(ANGULAR_PATH)/dist/packages-dist/*/esm/ -name "*.js"`; do \
+	for pkg in `find $(ANGULAR_PATH)/dist/packages-closure -name package.json`; do \
+		sed -i 's/0.0.0-PLACEHOLDER/2.0.1/g' $$pkg; \
+	done
+	for pkg in `find $(ANGULAR_PATH)/dist/packages-closure -name "*.js"`; do \
 		sed -i 's$$^\(.*static \)$$/** @nocollapse */\n\1$$g' $$pkg; \
 	done
-	mkdir -p $(ANGULAR_DEST)
-	cp -r $(ANGULAR_PATH)/dist/packages-dist/* $(ANGULAR_DEST)
-	cp -r $(ANGULAR_PATH)/dist/tools/@angular/tsc-wrapped $(ANGULAR_DEST)
+	mkdir -p $(ANGULAR_CLOSURE_DEST)
+	cp -r $(ANGULAR_PATH)/dist/packages-closure/* $(ANGULAR_CLOSURE_DEST)
+	cp -r $(ANGULAR_PATH)/dist/tools/@angular/tsc-wrapped $(ANGULAR_CLOSURE_DEST)
 	@> $@
 
 clean-build/.angular:
-	rm -rf $(ANGULAR_PATH) $(ANGULAR_DEST) build/.angular
+	rm -rf $(ANGULAR_PATH) $(ANGULAR_CLOSURE_DEST) build/.angular
 
 # rxjs
 RXJS_ROOT := deps/rxjs

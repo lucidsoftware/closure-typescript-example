@@ -3,23 +3,23 @@
   "version": "0.0.0",
   "homepage": "https://github.com/lucid-software/typescript-closure-example",
   "devDependencies": {
-    "@angular/common": "file:js/closure-node-modules/angular/common",
-    "@angular/compiler": "file:js/closure-node-modules/angular/compiler",
-    "@angular/compiler-cli": "file:js/closure-node-modules/angular/compiler-cli",
-    "@angular/core": "file:js/closure-node-modules/angular/core",
-    "@angular/platform-browser": "file:js/closure-node-modules/angular/platform-browser",
-    "@angular/platform-browser-dynamic": "file:js/closure-node-modules/angular/platform-browser-dynamic",
-    "@angular/platform-server": "file:js/closure-node-modules/angular/platform-server",
-    "@angular/tsc-wrapped": "file:js/closure-node-modules/angular/tsc-wrapped",
+    "@angular/common": "file:deps/angular/angular/dist/packages-dist/common",
+    "@angular/compiler": "file:deps/angular/angular/dist/packages-dist/compiler",
+    "@angular/compiler-cli": "file:deps/angular/angular/dist/packages-dist/compiler-cli",
+    "@angular/core": "file:deps/angular/angular/dist/packages-dist/core",
+    "@angular/platform-browser": "file:deps/angular/angular/dist/packages-dist/platform-browser",
+    "@angular/platform-browser-dynamic": "file:deps/angular/angular/dist/packages-dist/platform-browser-dynamic",
+    "@angular/platform-server": "file:deps/angular/angular/dist/packages-dist/platform-server",
+    "@angular/tsc-wrapped": "file:deps/angular/angular/dist/tools/@angular/tsc-wrapped",
     "es6-shim": "^0.35.0",
     "reflect-metadata": "^0.1.3",
-    "rxjs": "5.0.0-beta.9",
+    "rxjs": "5.0.0-beta.12",
     "rxjs-closure": "file:js/closure-node-modules/rxjs-closure",
     "symbol-observable": "file:js/closure-node-modules/symbol-observable",
     "tsickle": "file:deps/tsickle/tsickle",
     "tslib": "1.0.0",
-    "typescript": "2.0.0",
-    "zone.js": "^0.6.12"
+    "typescript": "2.0.3",
+    "zone.js": "^0.6.21"
   }
 }
 

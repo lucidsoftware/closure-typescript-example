@@ -21,6 +21,16 @@ Zone.prototype.name;
 Zone.prototype.get = function(key){};
 
 /**
+ * Returns a Zone which defines a `key`.
+ *
+ * Recursively search the parent Zone until a Zone which has a property `key` is found.
+ *
+ * @param {string} key The key to use for identification of the returned zone.
+ * @returns {Zone} The Zone which defines the `key`, `null` if not found.
+ */
+Zone.prototype.getZoneWith = function(key){};
+
+/**
  * Used to create a child zone.
  *
  * @param {?} zoneSpec A set of rules which the child zone should follow.
@@ -128,16 +138,19 @@ ZoneType.prototype.current;
 /** @type {Task} */
 ZoneType.prototype.currentTask;
 
+/** @return {?} */
+ZoneType.prototype.assertZonePatched = function(){};
+
 /**
  * @constructor
  */
 var ZoneSpec = function(){};
 
 /** @type {string} */
-ZoneType.prototype.name;
+ZoneSpec.prototype.name;
 
 /** @type {?} */
-ZoneType.prototype.properties;
+ZoneSpec.prototype.properties;
 
 /**
  * Allows the interception of zone forking.
@@ -325,6 +338,9 @@ TaskData.prototype.isPeriodic;
 
 /** @type {number} */
 TaskData.prototype.delay;
+
+/** @type {?number} */
+TaskData.prototype.handleId;
 
 /**
  * @constructor

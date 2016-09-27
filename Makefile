@@ -88,12 +88,14 @@ $(JS_BIN_PATH)/main.js: $(JS_SOURCES) $(JS_EXTERNS) build/.ngc-output build/.clo
 		--property_renaming_report=$(JS_BIN_PATH)/property_renaming_report \
 		--use_types_for_optimization true \
 		--dependency_mode=STRICT \
+		--debug \
+		--formatting=PRETTY_PRINT \
 		$(JS_ROOT:%='%/**.js') \
 		'!$(JS_EXTERNS_ROOT)/**.js' \
-		'$(CLOSURE_NODE_MODULES_ROOT)/angular/core/esm/**.js' \
-		'$(CLOSURE_NODE_MODULES_ROOT)/angular/common/esm/**.js' \
-		'$(CLOSURE_NODE_MODULES_ROOT)/angular/compiler/esm/**.js' \
-		'$(CLOSURE_NODE_MODULES_ROOT)/angular/platform-browser/esm/**.js' \
+		'$(CLOSURE_NODE_MODULES_ROOT)/angular/core/**.js' \
+		'$(CLOSURE_NODE_MODULES_ROOT)/angular/common/**.js' \
+		'$(CLOSURE_NODE_MODULES_ROOT)/angular/compiler/**.js' \
+		'$(CLOSURE_NODE_MODULES_ROOT)/angular/platform-browser/**.js' \
 		'$(CLOSURE_NODE_MODULES_ROOT)/rxjs-closure/**.js' \
 		'$(CLOSURE_NODE_MODULES_ROOT)/symbol-observable/es/**.js'
 
